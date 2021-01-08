@@ -99,7 +99,7 @@ Vagrant.configure("2") do |config|
     apt-get install -y php-common php-cli php-gd php-mysql php-curl php-intl php-mbstring php-bcmath php-imap php-xml php-zip
     add-apt-repository ppa:ondrej/php
     apt-get update
-    apt-get install -y apache2 libapache2-mod-php7.3 php7.3 php7.3-xml php7.3-gd php7.3-opcache php7.3-mbstring
+    apt-get install -y apache2 libapache2-mod-php php php-xml php-gd php-opcache php-mbstring php-curl
 
 
 	apt-get install -y composer
@@ -119,9 +119,10 @@ Vagrant.configure("2") do |config|
   ## display_errors=On
   ## errors_login all
   ## composer install
-  echo 'display_errors=On' >> /etc/php/7.2/apache2/php.ini
-  echo 'upload_max_filesize=20M' >> /etc/php/7.2/apache2/php.ini
-  echo 'display_startup_errors = On' >> /etc/php/7.2/apache2/php.ini
-  echo 'error_reporting=E_ALL' >> /etc/php/7.2/apache2/php.ini
+  PHPV=$(php -v | grep "PHP 7" | cut -c5-7)
+  echo 'display_errors=On' >> /etc/php/$PHPV/apache2/php.ini
+  echo 'upload_max_filesize=20M' >> /etc/php/$PHPV/apache2/php.ini
+  echo 'display_startup_errors = On' >> /etc/php/$PHPV/apache2/php.ini
+  echo 'error_reporting=E_ALL' >> /etc/php/$PHPV/apache2/php.ini
   SHELL
 end
